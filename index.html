@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+
+    <body>
+        <canvas id="canvas"></canvas>
+    </body>
+</html>
+
+<script>
+    console.log("DOM not load");
+    var width = 380;
+    var heigth = 280;
+    document.addEventListener("DOMContentLoaded", (event) => {
+
+        function draw_line(x, y, line_x, line_y, width, color) {
+            // Set line width
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineWidth = width;
+            ctx.strokeStyle = color;
+            ctx.lineTo(line_x, line_y);
+            ctx.closePath();
+            ctx.stroke();
+        }
+
+        function draw_rectangle(x, y, width, height, color) {
+            ctx.beginPath();
+            ctx.fillStyle = color;
+            ctx.fillRect(x, y, width, height);
+            ctx.closePath();
+        }
+
+        function draw_circle(x, y, radius, startAngle, endAngle, color1, color2) {
+            ctx.strokeStyle = color2;
+            ctx.fillStyle = color1;
+            ctx.beginPath();
+            ctx.arc(x, y, radius, startAngle, endAngle);
+            ctx.fill();
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+        function clear_screen(x, y, width, height) {
+            ctx.clearRect(x, y, width, height);
+        }
+
+        function game_loop(canvas, ctx) {
+            clear_screen(10, 10, canvas.width, canvas.height);
+            ctx.fillStyle = "blue";
+            ctx.fillRect(10, 10, width, heigth);
+            draw_line(30, 30, 80, 130, 3, "yellow");
+            draw_rectangle(100, 30, 150, 100, "purple");
+            draw_circle(100, 50, 20, 0, 2 * Math.PI, "red", "pink");
+            console.log("ca marche!!!");
+        }
+
+        function create_map() {
+            var map = [];
+            for (var j = 0; j <= 32; j++) {
+                for (var i = 0; i <= 24; j++) {
+                    map[j][i].push();
+                }
+            }
+        }
+
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        game_loop(canvas, ctx);
+        setInterval(game_loop, 1000 / 30, canvas, ctx);
+    });
+</script>
